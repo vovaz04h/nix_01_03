@@ -5,6 +5,12 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
+)
+
+const (
+	ERR_GET_HTTP = 1
+	ERR_IO_READ  = 2
 )
 
 func main() {
@@ -14,6 +20,7 @@ func main() {
 
 	if err != nil {
 		log.Println(err)
+		os.Exit(ERR_GET_HTTP)
 	}
 
 	defer resp.Body.Close()
@@ -22,6 +29,7 @@ func main() {
 
 	if err != nil {
 		log.Println(err)
+		os.Exit(ERR_IO_READ)
 	}
 
 	fmt.Println(string(body))
